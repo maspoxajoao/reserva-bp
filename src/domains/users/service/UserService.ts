@@ -1,7 +1,7 @@
 import { IUser } from "../model/User";
 import { UserRepository } from "../repository/UserRepository";
 
-export default class UserService {
+class UserService {
   private userRepository: UserRepository;
 
   constructor() {
@@ -9,6 +9,7 @@ export default class UserService {
   }
 
   async registerUser(user: IUser): Promise<IUser> {
+    console.log
     try {
       const existingUser = await this.userRepository.getUserByEmail(user.email);
       if (existingUser) {
@@ -22,3 +23,5 @@ export default class UserService {
     }
   }
 }
+
+export default UserService

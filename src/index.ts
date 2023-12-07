@@ -2,6 +2,7 @@ import { Application, Request, Response, NextFunction } from "express";
 import express from "express";
 import { connectDB } from "./database/connect";
 import router from "./domains/users/routes/UserRoutes";
+
 const app: Application = express();
 const port: number = parseInt(process.env.PORT || "3000", 10);
 
