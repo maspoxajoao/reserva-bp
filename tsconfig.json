@@ -1,9 +1,10 @@
 {
-    "compilerOptions": {
-      "target": "es6",
-      "module": "commonjs",
-      "outDir": "./dist",
-      "rootDir": "./src",
-      "strict": true
-    }
+  "compilerOptions": {
+    "target": "es6",
+    "module": "commonjs",
+    "esModuleInterop": true,
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "strict": true
   }
+}

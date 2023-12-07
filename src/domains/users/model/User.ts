@@ -1,23 +1,23 @@
-import { Schema, model, Document } from "mongoose";
-import { type } from "os";
+// src/users/model/User.ts
+import { Schema, model, Document } from 'mongoose';
 
-interface IUser extends Document {
+export interface IUser extends Document {
   name: string;
   email: string;
   password: string;
   dateOfBirth: Date;
   phoneNumber: string;
-  address: {
+  address:{
     street: string;
     city: string;
     zipCode: string;
   };
 }
 
-const UserSchema = new Schema({
+export const UserSchema = new Schema({
   name: { type: String, required: true },
   email: { type: String, required: true, unique: true },
-  password: { type: String, require: true },
+  password: { type: String, required: true },
   dateOfBirth: { type: Date, required: false },
   phoneNumber: { type: String, required: false },
   address: {
@@ -27,4 +27,5 @@ const UserSchema = new Schema({
   },
 });
 
-export default model<IUser>("User", UserSchema);
+export const User = model<IUser>('User', UserSchema);
+
