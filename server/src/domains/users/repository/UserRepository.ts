@@ -18,4 +18,12 @@ export class UserRepository {
       throw new Error("Error getting user by email");
     }
   }
+  async getAllUsers(): Promise<IUser[]> {
+    try {
+      const users = await User.find();
+      return users.map((user) => user.toObject());
+    } catch (error) {
+      throw new Error("Error getting all users");
+    }
+  }
 }

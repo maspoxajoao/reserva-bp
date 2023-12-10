@@ -1,12 +1,10 @@
 import { Request, Response } from "express";
 import UserService from "../service/UserService";
 
-export class UserController {
+class UserController {
   private userService: UserService;
 
   constructor(userService: UserService) {
-    console.log("userService received:", userService);
-
     this.userService = userService;
   }
 
@@ -19,6 +17,16 @@ export class UserController {
       res.status(400).json((error as any).message);
     }
   };
+
+  getAllUsers = async (_: Request, res: Response): Promise<void> => {
+    try {
+      const users = await this.userService.getAllUsers();
+      res.status(200).json(users);
+    } catch (error) {
+      res.status(500).json({ error: "Internal Server Error" });
+    }
+  };
+  // Adicione métodos para atualizar e excluir usuários conforme necessário
 }
 
 export default UserController;
