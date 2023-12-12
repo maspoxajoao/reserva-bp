@@ -29,7 +29,7 @@ app.use("/app/appointments", appointmentRouter);
 
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   console.error(err.stack);
-  res.status(500).send("Algo deu errado!");
+  res.status(500).send("Alguma coisa deu errado!");
 });
 
 app.listen(port, () => {
