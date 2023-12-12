@@ -10,6 +10,7 @@ class AppointmentController {
 
   scheduleAppointment = async (req: Request, res: Response): Promise<void> => {
     try {
+      console.log(res);
       const { body } = req;
       const appointment = await this.appointmentService.scheduleAppointment(body);
       res.status(201).json(appointment);

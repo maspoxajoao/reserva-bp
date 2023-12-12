@@ -1,5 +1,4 @@
 import { User } from "./../model/User";
-import argon2 from "argon2";
 import { Secret, sign, SignOptions } from "jsonwebtoken";
 import { IUser } from "../model/User";
 import { UserRepository } from "../repository/UserRepository";
@@ -19,9 +18,6 @@ class UserService {
         throw new Error("E-mail já registrado");
       }
 
-      const hashedPassword = await argon2.hash(user.password);
-      user.password = hashedPassword;
-
       const createdUser = await this.userRepository.createUser(user);
       return createdUser;
     } catch (error) {
@@ -40,7 +36,7 @@ class UserService {
         throw new Error("Usuário não encontrado");
       }
 
-      const isPasswordValid = await argon2.verify(user.password, password);
+      const isPasswordValid = user.password == password;
       if (!isPasswordValid) {
         throw new Error("Senha inválida");
       }
@@ -111,15 +107,20 @@ class UserService {
       throw new Error("Credenciais inválidas");
     }
 
-    const isPasswordValid = await argon2.verify(user.password, password);
+    const isPasswordValid = user.password == password;
 
     if (!isPasswordValid) {
       throw new Error("Credenciais inválidas");
     }
 
-    const token = sign({ userId: user._id }, process.env.JWT_SECRET as Secret, {
-      expiresIn: "1h",
-    });
+    console.log("Chave secreta:", process.env.JWT_SECRET);
+    const token = sign(
+      { userId: user._id },
+      process.env.JWT_SECRET || "$suaChavePadrao",
+      {
+        expiresIn: "1h",
+      }
+    );
 
     return token;
   }

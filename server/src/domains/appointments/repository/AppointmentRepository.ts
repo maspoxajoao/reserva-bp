@@ -6,22 +6,21 @@ export class AppointmentRepository {
       const createAppointment = await Appointment.create(appointment);
       return createAppointment.toObject();
     } catch (error) {
+      console.error(error);
       throw new Error("Erro ao criar agendamento");
     }
   }
-
+  
   async checkAvailability(consultantId: string, date: Date): Promise<boolean> {
     try {
       const existingAppointment = await Appointment.findOne({
         consultant: consultantId,
-        date: { $eq: date },
+        date: date,
       });
-
+  
       return !existingAppointment;
     } catch (error) {
-      throw new Error(
-        `Erro ao verificar a disponibilidade: ${(error as any).message}`
-      );
+      throw new Error("Erro ao verificar a disponibilidade");
     }
   }
 }
